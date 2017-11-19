@@ -20,5 +20,5 @@ EXPOSE 5000
 
 ENTRYPOINT [""]
 
-CMD ["gunicorn", "-c", "/app/conf/app/config.py", "init:application"]
+CMD ["gunicorn", "-c", "/app/conf/app/conf.py", "init:application"]
 
