@@ -4,12 +4,12 @@ from werkzeug.serving import run_simple
 
 from flask import Flask
 
+from api import app as api_app
+from frontend import app as frontend_app
 from settings import HOSTNAME, PORT, USE_RELOADER, USE_DEBUGGER
 
 
-app = Flask(__name__)
-
-application = DispatcherMiddleware(app, {})
+application = DispatcherMiddleware(frontend_app, {'/api': api_app})
 
 
 if __name__ == '__main__':

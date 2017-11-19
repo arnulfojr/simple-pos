@@ -9,7 +9,7 @@ services:
     networks:
       - local
   db:
-    image: postgresql:10
+    image: postgres:10
     expose:
       - "5432"
     restart: on-failure
