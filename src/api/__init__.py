@@ -15,8 +15,10 @@ setup_app(app)
 # include Blueprints
 
 from products import blueprint as products_bp
+from transactions import blueprint as transactions_bp
 
 # register blueprints
 
 app.register_blueprint(products_bp)
+app.register_blueprint(transactions_bp)
 
