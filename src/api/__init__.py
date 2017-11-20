@@ -14,5 +14,9 @@ setup_app(app)
 
 # include Blueprints
 
+from products import blueprint as products_bp
+
 # register blueprints
+
+app.register_blueprint(products_bp)
 
