@@ -1,4 +1,4 @@
 
 import products
-import sale
+import transactions
 
