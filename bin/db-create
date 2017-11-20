@@ -1,0 +1,18 @@
+#!/usr/bin/python
+
+import core
+
+from lib.db import create_all
+
+
+def create_db():
+    print "Will create db"
+
+    create_all()
+
+    print "Created db"
+
+
+if __name__ == '__main__':
+    create_db()
+

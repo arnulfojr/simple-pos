@@ -1,0 +1,18 @@
+#!/usr/bin/python
+
+import core
+
+from lib.db import drop_all
+
+
+def drop_tables():
+    print "Will DROP all tables from DB"
+
+    drop_all()
+
+    print "Dropped all tables"
+
+
+if __name__ == '__main__':
+    drop_tables()
+
