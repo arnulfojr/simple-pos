@@ -1,5 +1,4 @@
 
-from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.exc import MultipleResultsFound
 
 from .. import session
@@ -23,8 +22,6 @@ class MixinModel(object):
         query = query.filter(cls.code == code)
         try:
             return query.one()
-        except NoResultFound:
-            return None
         except MultipleResultsFound:
             return None
 

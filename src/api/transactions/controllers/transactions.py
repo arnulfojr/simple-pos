@@ -51,3 +51,24 @@ def save_transaction():
 
     return make_response(jsonify(transaction.to_json()), 201)
 
+
+@blueprint.route('/<uuid:code>/', methods=['PUT'])
+@is_json
+def update_transaction(code):
+    validator = Validator(Transaction.schema)
+
+    payload = request.get_json()
+
+    if not validator.validate(payload):
+        return make_response(jsonify(validator.errors), 400)
+
+    transaction = Transaction.get(code)
+
+    transaction = Transaction.from_json(payload, transaction)
+
+    session.add(transaction)
+    session.commit()
+    session.flush()
+
+    return make_response(jsonify(transaction.to_json()), 200)
+
