@@ -72,3 +72,17 @@ def update_transaction(code):
 
     return make_response(jsonify(transaction.to_json()), 200)
 
+
+@blueprint.route('/<uuid:code>/deliver/', methods=['PUT'])
+@is_json
+def deliver_transaction(code):
+    transaction = Transaction.get(code)
+
+    transaction.delivered = True
+
+    session.add(transaction)
+    session.commit()
+    session.flush()
+
+    return make_response(jsonify(transaction.to_json()), 200)
+
