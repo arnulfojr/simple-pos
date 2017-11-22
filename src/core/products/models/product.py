@@ -1,4 +1,5 @@
 
+import pendulum
 from uuid import uuid4
 
 from sqlalchemy import Column, func
@@ -6,6 +7,7 @@ from sqlalchemy import DateTime, String, Integer, Numeric, Boolean
 
 from lib.db import Model, MixinModel
 from lib.db.types import GUID
+from lib.utils.cerberus.coercers import datetime_coercer
 
 
 class Product(MixinModel, Model):
@@ -63,7 +65,8 @@ class Product(MixinModel, Model):
         'registered_on': {
             'type': 'datetime',
             'required': False,
-            'empty': False
+            'empty': False,
+            'coerce': datetime_coercer
         }
     }
 
@@ -95,7 +98,7 @@ class Product(MixinModel, Model):
         product['description'] = self.description
         product['available'] = self.available
         product['price'] = float(self.price)
-        product['registered_on'] = self.registered_on.isoformat()
+        product['registered_on'] = pendulum.instance(self.registered_on).to_iso8601_string()
 
         return product
 
