@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+POS
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid" ng-app="cashierApp">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>POS</h1>
+        </div>
+        <div class="col-sm-12">
+            <p>Tap to increase, tap to decrease!</p>
+        </div>
+    </div>
+    <div class="row" ng-controller="OrderController">
+        <div class="col-sm-12">
+            <div class="list-group">
+                <div class="list-group-item" ng-repeat="transaction in transactions" ng-click="deliver(transaction)">
+                    <p class="list-group-item-text">
+                        <span ng-repeat="item in transaction.items">
+                            [% item.product.name %] ([% item.quantity %])
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4" ng-controller="ProductController">
+            <!-- Products side -->
+            <div class="list-group">
+                <button ng-repeat="product in products" class="list-group-item" ng-click="add(product)">
+                    <h4 class="list-group-item-heading">[% product.name %]</h4>
+                    <p class="list-group-item-text">[% product.price | currency:'€':2 %]</p>
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-8" ng-controller="CashierController">
+            <!-- Cashier view -->
+            <div class="list-group">
+                <div class="list-group-item" ng-show="alert.show">
+                    <div class="alert [% alert.type %]">
+                        [% alert.message %]
+                    </div>
+                </div>
+                <button ng-repeat="item in order.items()" class="list-group-item" ng-click="remove(item)">
+                    <h4 class="list-group-item-heading">[% item.product.name %]</h4>
+                    <p class="list-group-item-text"><b>Quantity:</b> [% item.quantity %]</p>
+                </button>
+                <button class="list-group-item">
+                    <h3 class="list-group-item-text"><b>Total:</b> [% order.total | currency:'€':2 %]</h3>
+                </button>
+                <div class="list-group-item">
+                    <input class="form-control" type="number" ng-model="income" placeholder="Paid by customer"/>
+                </div>
+                <div class="list-group-item">
+                    <h4><b>Change:</b> €[% income - order.total %]</h4>
+                </div>
+                <div class="list-group-item">
+                    <button class="btn btn-danger" ng-click="empty()">Clear</div>
+                </div>
+                <div class="list-group-item">
+                    <button class="btn btn-primary" ng-click="addOrder()">Pay and Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='node_modules/angular/angular.min.js') }}"></script>
+<script src="{{ url_for('static', filename='transactions/main.js') }}"></script>
+{% endblock %}

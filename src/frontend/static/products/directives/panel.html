@@ -1,0 +1,29 @@
+<!-- Product Panel template -->
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">[% product.name %]</h3>
+    </div>
+    <div class="panel-body">
+        [% product.description %]
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <b>Available</b> <span class="glyphicon" aria-hidden="true" ng-class="product.available ? 'glyphicon-ok' : 'glyphicon-remove'"><!-- icon --></span> 
+        </li>
+        <li class="list-group-item">
+            <b>Price</b> [% product.price | currency:'€':2 %]
+        </li>
+        <li class="list-group-item">
+            <b>SKU</b> [% product.sku %]
+        </li>
+        <li class="list-group-item">
+            <b>Registered On</b> [% product.registered_on | date:'medium' %]
+        </li>
+        <li class="list-group-item">
+            <b>Code</b> [% product.code %]
+        </li>
+        <li class="list-group-item">
+            <a class="btn btn-warning" ng-href="/products/edit/[% product.code %]/">Edit</a>
+        </li>
+    </ul>
+</div>

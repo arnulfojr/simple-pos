@@ -12,7 +12,14 @@ from .. import blueprint
 
 @blueprint.route('/', methods=['GET'])
 def get_transactions():
-    transactions = Transaction.query()
+    delivered = request.args.get('delivered', 'true') == 'true'
+    query = session.query(Transaction)
+    
+    if delivered is not None:
+        query = query.filter(Transaction.delivered == delivered)
+
+    transactions = query.all()
+
 
     payload = [transaction.to_json() for transaction in transactions]
 
@@ -74,7 +81,6 @@ def update_transaction(code):
 
 
 @blueprint.route('/<uuid:code>/deliver/', methods=['PUT'])
-@is_json
 def deliver_transaction(code):
     transaction = Transaction.get(code)
 

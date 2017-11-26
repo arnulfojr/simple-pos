@@ -2,6 +2,8 @@ version: '3'
 services:
   server:
     image: arnulfosolis/simple-pos
+    environment:
+        DB_PASSWORD: simple_pos
     depends_on:
       - db
     expose:
