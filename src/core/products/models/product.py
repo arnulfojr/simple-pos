@@ -5,7 +5,7 @@ from uuid import uuid4
 from sqlalchemy import Column, func
 from sqlalchemy import DateTime, String, Integer, Numeric, Boolean
 
-from lib.db import Model, MixinModel
+from lib.db import Model, MixinModel, session
 from lib.db.types import GUID
 from lib.utils.cerberus.coercers import datetime_coercer
 
@@ -69,6 +69,17 @@ class Product(MixinModel, Model):
             'coerce': datetime_coercer
         }
     }
+
+
+    @classmethod
+    def find_all(cls, available=None):
+        query = session.query(cls)
+
+        if available is not None:
+            query = query.filter(cls.available == available)
+
+        return query.all()
+
 
     @classmethod
     def from_json(cls, json, product=None):

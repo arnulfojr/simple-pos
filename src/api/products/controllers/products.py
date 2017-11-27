@@ -12,7 +12,9 @@ from core.products import Product
 @blueprint.route('/', methods=['GET'])
 def get_products():
     """Returns all products from DB"""
-    products = Product.query()
+    available = request.args.get('available', None)
+
+    products = Product.find_all(available=available)
 
     payload = [product.to_json() for product in products]
 
