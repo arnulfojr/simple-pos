@@ -1,0 +1,13 @@
+version: '3'
+services:
+  server:
+    build: .
+    restart: on-failure
+    command:
+      - "python"
+      - "init.py"
+    environment:
+      IS_DEV: 'True'
+      DB_PASSWORD: simple_pos
+    volumes:
+      - .:/app

@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Browse Products
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Browse Products</h1>
+    </div>
+</div>
+<div class="row" ng-app="productApp">
+    <div class="col-sm-12" ng-controller="BrowseController">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="product in products">
+            <product-panel product="product"></product-panel>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='node_modules/angular/angular.min.js') }}"></script>
+<script src="{{ url_for('static', filename='products/main.js') }}"></script>
+{% endblock %}
+
