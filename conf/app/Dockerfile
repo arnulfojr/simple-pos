@@ -1,4 +1,4 @@
-FROM arnulfosolis/python:latest
+FROM python:2.7-alpine
 
 MAINTAINER "Arnulfo Solis <arnulfojr@me.com>"
 
@@ -8,11 +8,13 @@ ENV PATH="/app/bin/:${PATH}"
 
 ENV FLASK_APP="init.py"
 
-ADD . /app
+COPY . /app
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+RUN apk add --no-cache build-base postgresql-libs postgresql-dev libffi-dev && \
+    pip install -r requirements.txt && \
+    apk del build-base
 
 WORKDIR /app/src
 
