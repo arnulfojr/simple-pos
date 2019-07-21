@@ -8,13 +8,15 @@ ENV PATH="/app/bin/:${PATH}"
 
 ENV FLASK_APP="init.py"
 
-COPY . /app
-
-WORKDIR /app
+COPY ./requirements.txt .
 
 RUN apk add --no-cache build-base postgresql-libs postgresql-dev libffi-dev && \
     pip install -r requirements.txt && \
     apk del build-base
+
+COPY . /app
+
+WORKDIR /app
 
 WORKDIR /app/src
 
