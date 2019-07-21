@@ -23,7 +23,7 @@ class Transaction(MixinModel, Model):
 
     code = Column(GUID, primary_key=True, nullable=False, default=uuid4)
 
-    number = Column(Integer, autoincrement=True, unique=True)
+    number = Column(Integer, autoincrement=True, unique=True, nullable=True)
 
     registered_on = Column(DateTime, server_default=func.now())
 
