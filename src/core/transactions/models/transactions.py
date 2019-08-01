@@ -23,6 +23,8 @@ class Transaction(MixinModel, Model):
 
     code = Column(GUID, primary_key=True, nullable=False, default=uuid4)
 
+    number = Column(Integer, autoincrement=True, unique=True, nullable=True)
+
     registered_on = Column(DateTime, server_default=func.now())
 
     delivered = Column(Boolean, default=False)
@@ -65,6 +67,11 @@ class Transaction(MixinModel, Model):
             'type': 'string',
             'required': False,
             'empty': False
+        },
+        'number': {
+            'type': 'integer',
+            'required': False,
+            'empty': False
         }
     }
 
@@ -94,6 +101,7 @@ class Transaction(MixinModel, Model):
         json = {}
 
         json['code'] = self.code
+        json['number'] = self.number
         json['registered_on'] = pendulum.instance(self.registered_on).to_iso8601_string()
         json['delivered'] = self.delivered
         json['tax'] = float(self.tax)
